@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Palette Analysis and Accessibility - vangogh</title>
+    <link rel="stylesheet" href="../../css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="../../index.html" class="nav-brand home-icon">
+                <svg height="24" width="24" viewBox="0 0 16 16" fill="currentColor">
+                    <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z"/>
+                </svg>
+            </a>
+            <div class="nav-links">
+                <a href="https://github.com/cherylisabella" target="_blank" class="github-icon">
+                    <svg height="24" width="24" viewBox="0 0 16 16" fill="currentColor">
+                        <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="doc-layout">
+            <aside class="sidebar">
+                <nav class="sidebar-nav">
+                    <h3>vangogh</h3>
+                    <ul>
+                        <li><a href="index.html" class="active">Overview</a></li>
+                        <li><a href="functions.html">Core Functions</a></li>
+                        <li><a href="ggplot2.html">ggplot2 Integration</a></li>
+                        <li><a href="analysis.html">Advanced Features</a></li>
+                        <li><a href="gallery.html">Visualisation Gallery</a></li>
+                        <li><a href="export.html">Data Export</a></li>
+                    </ul>
+                </nav>
+            </aside>
+
+            <main class="doc-content">
+                <h1>Palette Analysis and Accessibility</h1>
+
+                <section>
+                    <h2>Palette Information</h2>
+
+                    <h3>vangogh_palette_info()</h3>
+                    <p>Get detailed palette information.</p>
+
+                    <h3>Parameters</h3>
+                    <table class="function-table">
+                        <thead>
+                            <tr>
+                                <th>Parameter</th>
+                                <th>Type</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><code>add_metadata</code></td><td>logical</td><td>Include HCL color space data</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3>Example</h3>
+                    <pre class="code-block"># Basic palette info
+info <- vangogh_palette_info()
+
+# With metadata
+info_meta <- vangogh_palette_info(add_metadata = TRUE)</pre>
+                </section>
+
+                <section>
+                    <h2>Colour Vision Deficiency (CVD) Assessment</h2>
+                    <p>The <code>vangogh</code> package includes comprehensive tools to evaluate palette accessibility for users with colour blindness. All CVD simulations use the actively maintained <code>colorspace</code> package.</p>
+
+                    <h3>Check Individual Palettes</h3>
+                    <p>Simulate how palettes appear under different types of colour vision deficiency:</p>
+                    <pre class="code-block"># Check a single palette with visual simulation
+check_palette("StarryNight")
+
+# Visualise with CVD simulation
+viz_palette("Irises", colorblind = TRUE)
+
+# Compare palettes with CVD simulation
+compare_palettes(c("StarryNight", "SelfPortrait"), colorblind = TRUE)</pre>
+
+                    <h3>Comprehensive CVD Analysis</h3>
+                    <p>Get quantitative accessibility scores:</p>
+                    <pre class="code-block"># Analyse a single palette
+check_vangogh_cvd("StarryNight")
+
+# Batch check all palettes
+cvd_results <- check_all_vangogh_cvd()
+
+# Filter for CVD-safe palettes (score >= 70)
+safe_palettes <- get_cvd_safe_palettes(threshold = 70)
+
+# View pre-computed CVD scores (no colorspace required)
+data(vangogh_cvd_scores)
+head(vangogh_cvd_scores)</pre>
+
+                    <h3>CVD Reporting Tools</h3>
+                    <p>Generate accessibility reports and badges:</p>
+                    <pre class="code-block"># Get palette info with CVD scores
+vangogh_palette_info_with_cvd()
+
+# Print markdown badge for a palette
+print_cvd_badge("StarryNight")
+
+# Create summary table of all palettes
+summarize_cvd_accessibility()</pre>
+
+                    <h3>Understanding CVD Scores</h3>
+                    <p>CVD assessment uses <strong>CIELAB colour space</strong> for perceptually uniform distance calculations:</p>
+                    <ul class="features">
+                        <li><strong>Score ≥ 70</strong>: Excellent accessibility</li>
+                        <li><strong>Score 50-69</strong>: Good accessibility</li>
+                        <li><strong>Score 30-49</strong>: Fair accessibility</li>
+                        <li><strong>Score < 30</strong>: Poor accessibility</li>
+                    </ul>
+
+                    <p>The package evaluates three types of colour vision deficiency:</p>
+                    <ul class="features">
+                        <li><strong>Deuteranopia</strong> (red-green, most common)</li>
+                        <li><strong>Protanopia</strong> (red-green)</li>
+                        <li><strong>Tritanopia</strong> (blue-yellow, rare)</li>
+                    </ul>
+
+                    <h3>Pre-computed Data</h3>
+                    <p>Access CVD scores without installing <code>colorspace</code>:</p>
+                    <pre class="code-block"># Load pre-computed CVD scores dataset
+data(vangogh_cvd_scores)
+
+# Filter by accessibility level
+excellent_palettes <- subset(vangogh_cvd_scores, 
+                              min_cvd_score >= 70)</pre>
+                </section>
+
+            </main>
+        </div>
+    </div>
+</body>
+</html>
